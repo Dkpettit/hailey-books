@@ -1,11 +1,12 @@
 const asyncHandler = require('express-async-handler')
 const Book = require('../models/bookModel')
+const User = require('../models/userModel')
 
 // @desc    Get Books
 // @route   GET /api/books
 // @access  Private
 const getBooks = asyncHandler(async (req, res) => {
-    const books = await Book.find()
+    const books = await Book.find({user: req.user.id })
 
     res.status(200).json(books)
 })
@@ -23,6 +24,7 @@ const setBook = asyncHandler(async (req, res) => {
         title: req.body.title,
         url: req.body.url,
         cover: req.body.cover,
+        user: req.user.id,
     })
 
     res.status(200).json(book)
@@ -33,9 +35,24 @@ const setBook = asyncHandler(async (req, res) => {
 // @access  Private
 const updateBook = asyncHandler(async (req, res) => {
     const book = await Book.findById(req.params.id)
+
     if(!book){
         res.status(400)
         throw new Error('Book not found.')
+    }
+
+    const user = await User.findById(req.user.id)
+
+    // Check for User
+    if(!user){
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    // Ensure the logged in user matches the user that created the book
+    if(book.user.toString() !== user.id){
+        res.status(401)
+        throw new Error('User not authorized.')
     }
 
     const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, {new: true} )
@@ -54,16 +71,18 @@ const deleteBook = asyncHandler(async (req, res) => {
         throw new Error('Book not found')
     }
 
+    const user = await User.findById(req.user.id)
+
     // //check for user
-    // if(!req.user){
-    //     res.status(401)
-    //     throw new Error('User not found.')
-    // }
+    if(!user){
+        res.status(401)
+        throw new Error('User not found.')
+    }
     //make sure the logged in user matches the owner of the show
-    // if(show.user.toString() !== req.user.id){
-    //     res.status(401)
-    //     throw new Error('User not authorized.')
-    // }
+    if(book.user.toString() !== req.user.id){
+        res.status(401)
+        throw new Error('User not authorized.')
+    }
 
     await book.deleteOne()
 
