@@ -36,6 +36,7 @@ h2,
 h3 {
   font-weight: 600;
   margin-bottom: 10px;
+  padding: 10px;
 }
 
 .container {
@@ -86,17 +87,17 @@ h3 {
 }
 
 .heading p {
-  color: #9063FF;
+  color: #828282;
 }
 
-.shows {
+.books {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   color: #fff;
 }
 
-.show {
+.book {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -106,10 +107,11 @@ h3 {
   padding: 15px;
   border-radius: 12px;
   text-align: center;
-  background-color: #272727;
+  color: #9063FF;
+  background: #FF63E6;
 }
 
-.show img {
+.book img {
   max-width: 300px;
   border-radius: 12px;
 }
@@ -129,8 +131,7 @@ h3 {
 .form-group select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #FF63FE
-  ;
+  border: 1px solid #FF63FE;
   border-radius: 5px;
   margin-bottom: 10px;
   font-family: inherit;
@@ -202,8 +203,10 @@ h3 {
 .modal {
   font-family: 'Poppins', sans-serif;
   height: 100vh;
-  background: lightgrey;
-  color: #edf0f1;
+  background: #fff;
+  width: 70%;
+  margin: 0 15% 0 15%;
+  color: #9063FF;
 }
 
 .modalClose {
@@ -214,10 +217,57 @@ h3 {
 }
 
 .deleteBtn {
-  background-color: #272727;
+  background-color: red;
   border: none;
-  width: 65px;
-  height: 65px;
+  border-radius: 50px;
+  width: 45px;
+  height: 45px;
+}
+
+.deleteBtn:hover {
+  background-color: #9063FF;
+  cursor: pointer;
+  border: none;
+  transform: translateY(-5px);
+}
+
+.addBtn {
+  background-color: green;
+  border: none;
+  border-radius: 50px;
+  width: 45px;
+  height: 45px;
+}
+
+.addBtn:hover {
+  background-color: lightgreen;
+  cursor: pointer;
+  border: none;
+  transform: translateY(-5px);
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table a {
+  color: #9063FF;
+}
+
+table a:hover {
+  cursor: pointer;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #FF63E6;
 }
 
 @keyframes spin {

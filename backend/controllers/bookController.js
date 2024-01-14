@@ -19,6 +19,8 @@ const setBook = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Please add a Book Title')
     }
+     
+    console.log('this is the title' + req.body.title)
 
     const book = await Book.create({
         title: req.body.title,
