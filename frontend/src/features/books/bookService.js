@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:5000/api/books/'
+const API_URL = (process.env.NODE_ENV === 'production') ? 'https://hailey-books.onrender.com/api/books/' :'http://localhost:5000/api/books/'
 
 //Create new book
 const createBook = async (bookData, token) => {
